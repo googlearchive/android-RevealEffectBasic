@@ -15,6 +15,9 @@
  */
 package com.example.android.revealeffectbasic;
 
+import com.example.android.common.logger.Log;
+
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -39,35 +42,34 @@ public class RevealEffectBasicFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.reveal_effect_basic, container, false);
 
         View button = rootView.findViewById(R.id.button);
 
-        /* Set a listener to reveal the view on ACTION_DOWN. */
-        button.setOnTouchListener(new View.OnTouchListener() {
+        // Set a listener to reveal the view when clicked.
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                    View shape = rootView.findViewById(R.id.circle);
-                    /* Create a reveal {@Link ValueAnimator} that starts clipping the view from
-                    * the top left corner until the whole view is covered. */
-                    ValueAnimator animator = ViewAnimationUtils.createCircularReveal(
-                            shape,
-                            0,
-                            0,
-                            0,
-                            (float) Math.hypot(shape.getWidth(), shape.getHeight()));
+            public void onClick(View view) {
+                View shape = rootView.findViewById(R.id.circle);
 
-                    /* Set a natural ease-in/ease-out interpolator. */
-                    animator.setInterpolator(new AccelerateDecelerateInterpolator());
+                // Create a reveal {@link Animator} that starts clipping the view from
+                // the top left corner until the whole view is covered.
+                Animator animator = ViewAnimationUtils.createCircularReveal(
+                        shape,
+                        0,
+                        0,
+                        0,
+                        (float) Math.hypot(shape.getWidth(), shape.getHeight()));
 
-                    animator.start();
-                    return false;
-                }
-                return false;
+                // Set a natural ease-in/ease-out interpolator.
+                animator.setInterpolator(new AccelerateDecelerateInterpolator());
+
+                // Finally start the animation
+                animator.start();
+
+                Log.d(TAG, "Starting Reveal animation");
             }
         });
 
