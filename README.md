@@ -27,8 +27,8 @@ Press the *Reveal* button to see the the circular reveal.
 Pre-requisites
 --------------
 
-- Android SDK 24
-- Android Build Tools v24.0.1
+- Android SDK 25
+- Android Build Tools v25.0.2
 - Android Support Repository
 
 Screenshots
